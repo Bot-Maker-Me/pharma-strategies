@@ -38,9 +38,11 @@ nothing env-dependent runs at import time.
 
 ## Supabase
 
-The app expects the schema in `supabase/migrations/`. On a fresh project, either paste
-`supabase/setup.sql` into the SQL Editor (one query, idempotent) or run
-`npx supabase link --project-ref glgstbspabvmvgdvjyyu` followed by `npx supabase db push`.
+The schema is already applied to `glgstbspabvmvgdvjyyu` (tables, RLS, policies, the
+signup trigger and the seeded app catalog). `supabase/migrations/` is the record of how it
+was built — add new migrations there and push them with
+`npx supabase link --project-ref glgstbspabvmvgdvjyyu` then `npx supabase db push`.
+
 `supabase/README.md` has the full walkthrough, including how to create the first
 administrator — the browser can never promote itself.
 
