@@ -50,6 +50,15 @@ administrator — the browser can never promote itself.
 INSERT and the `/go/[slug]` destination lookup are both permitted to the `anon` role by
 RLS. Add it when you need server-side admin or audit writes.
 
+## Fonts
+
+Do not reintroduce `next/font/google`: it downloads each face during `next build`, and an
+unreachable `fonts.gstatic.com` fails the entire deployment (this is what broke the first
+Vercel build). The three families are loaded with a `<link>` in `app/layout.tsx` and
+declared as `--font-display` / `--font-body` / `--font-mono` in `globals.css`. To remove
+the third-party request entirely, self-host with `@fontsource/*` or `next/font/local` and
+committed woff2 files.
+
 ## Package manager
 
 The repo contains a `pnpm-workspace.yaml` (tool-generated for local build approvals)
