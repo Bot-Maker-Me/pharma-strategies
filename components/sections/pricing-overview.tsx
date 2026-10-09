@@ -11,13 +11,13 @@ export function PricingOverview() {
   const [yearly, setYearly] = useState(false);
 
   return (
-    <section id="pricing" className="bg-navy-50/40 py-20 lg:py-28">
+    <section id="pricing" className="bg-raisedDark/40 py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <h2 className="font-heading text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">
+          <h2 className="font-heading text-3xl font-bold tracking-tight text-primaryText sm:text-4xl">
             Simple, transparent pricing
           </h2>
-          <p className="mt-4 text-lg text-navy-600">
+          <p className="mt-4 text-lg text-secondaryText">
             Start with a single app or subscribe to the full platform. No hidden
             fees, cancel anytime.
           </p>
@@ -26,28 +26,28 @@ export function PricingOverview() {
         {/* Toggle */}
         <div className="mt-8 flex items-center justify-center gap-4">
           <span
-            className={`text-sm font-medium ${!yearly ? 'text-navy-900' : 'text-navy-400'}`}
+            className={`text-sm font-medium ${!yearly ? 'text-primaryText' : 'text-secondaryText/70'}`}
           >
             Monthly
           </span>
           <button
             onClick={() => setYearly(!yearly)}
-            className="relative h-7 w-14 rounded-full bg-navy-200 transition-colors hover:bg-navy-300"
+            className="relative h-7 w-14 rounded-full bg-hairline"
             aria-label="Toggle billing period"
           >
             <motion.div
               layout
               transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-              className={`absolute top-0.5 h-6 w-6 rounded-full bg-teal-500 shadow-md ${
+              className={`absolute top-0.5 h-6 w-6 rounded-full bg-accentRed shadow-md ${
                 yearly ? 'left-7' : 'left-0.5'
               }`}
             />
           </button>
           <span
-            className={`text-sm font-medium ${yearly ? 'text-navy-900' : 'text-navy-400'}`}
+            className={`text-sm font-medium ${yearly ? 'text-primaryText' : 'text-secondaryText/70'}`}
           >
             Yearly
-            <span className="ml-1.5 rounded-full bg-teal-50 px-2 py-0.5 text-xs font-medium text-teal-700">
+            <span className="ml-1.5 rounded-full bg-accentRed/10 px-2 py-0.5 text-xs font-medium text-accentRed">
               Save ~17%
             </span>
           </span>
@@ -57,22 +57,23 @@ export function PricingOverview() {
           {platformPricing.map((tier, i) => (
             <Reveal key={tier.name} delay={i * 0.1}>
               <div
-                className={`relative flex h-full flex-col rounded-2xl border bg-white p-6 shadow-sm transition-shadow hover:shadow-lg ${
+                className={`relative flex h-full flex-col rounded-2xl border bg-raisedDark p-6 shadow-soft transition-shadow hover:shadow-lift ${
                   tier.highlighted
-                    ? 'border-teal-400 ring-2 ring-teal-400/20'
-                    : 'border-navy-100'
+                    ? 'border-accentRed ring-2 ring-accentRed/25'
+                    : 'border-hairline'
                 }`}
               >
-                {tier.highlighted && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-teal-500 px-4 py-1 text-xs font-semibold text-white shadow-md">
-                    Most Popular
-                  </span>
-                )}
-
-                <h3 className="font-heading text-xl font-semibold text-navy-900">
-                  {tier.name}
-                </h3>
-                <p className="mt-1 text-sm text-navy-600">
+                <div className="flex items-baseline justify-between gap-3">
+                  <h3 className="font-heading text-xl font-semibold text-primaryText">
+                    {tier.name}
+                  </h3>
+                  {tier.highlighted && (
+                    <span className="font-mono text-[10px] uppercase tracking-widest text-accentRed">
+                      Recommended
+                    </span>
+                  )}
+                </div>
+                <p className="mt-1 text-sm text-secondaryText">
                   {tier.description}
                 </p>
 
@@ -84,12 +85,12 @@ export function PricingOverview() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -8 }}
                       transition={{ duration: 0.2 }}
-                      className="font-heading text-4xl font-bold text-navy-900"
+                      className="font-heading text-4xl font-bold text-primaryText"
                     >
                       ${yearly ? tier.yearlyPrice : tier.monthlyPrice}
                     </motion.span>
                   </AnimatePresence>
-                  <span className="text-sm text-navy-500">
+                  <span className="text-sm text-secondaryText">
                     /{yearly ? 'year' : 'month'}
                   </span>
                 </div>
@@ -98,9 +99,9 @@ export function PricingOverview() {
                   {tier.features.map((feature) => (
                     <li
                       key={feature}
-                      className="flex items-start gap-2 text-sm text-navy-700"
+                      className="flex items-start gap-2 text-sm text-secondaryText"
                     >
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-teal-500" />
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-accentRed" />
                       {feature}
                     </li>
                   ))}
@@ -109,7 +110,7 @@ export function PricingOverview() {
                 <Button
                   className={`mt-6 w-full ${
                     tier.highlighted
-                      ? 'bg-teal-500 text-white hover:bg-teal-600'
+                      ? 'bg-accentRed text-primaryText hover:bg-accentRedBright'
                       : ''
                   }`}
                   variant={tier.highlighted ? 'default' : 'outline'}
