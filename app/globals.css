@@ -3,59 +3,44 @@
 @tailwind utilities;
 
 @layer base {
+  /*
+   * Dark-only brand theme. These are the values shadcn primitives actually render
+   * with (bg-background, border-input, ring-ring, text-muted-foreground), so they must
+   * stay in sync with the palette in tailwind.config.ts:
+   * midnight #0B1220, raised #111827, hairline #24314B, cream #F5F0E8,
+   * muted #9AA7BD, accent red #C23B3B.
+   */
   :root {
-    --background: 210 20% 99%;
-    --foreground: 222 47% 11%;
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
-    --primary: 222 75% 15%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 210 16% 96%;
-    --secondary-foreground: 222 47% 11%;
-    --muted: 210 16% 95%;
-    --muted-foreground: 215 16% 47%;
-    --accent: 178 100% 35%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 214 20% 90%;
-    --input: 214 20% 90%;
-    --ring: 178 100% 35%;
-    --chart-1: 222 75% 15%;
-    --chart-2: 178 100% 35%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --background: 220 49% 8%;
+    --foreground: 37 39% 94%;
+    --card: 221 39% 11%;
+    --card-foreground: 37 39% 94%;
+    --popover: 221 39% 11%;
+    --popover-foreground: 37 39% 94%;
+    --primary: 0 53% 50%;
+    --primary-foreground: 37 39% 94%;
+    --secondary: 220 35% 22%;
+    --secondary-foreground: 37 39% 94%;
+    --muted: 220 30% 18%;
+    --muted-foreground: 218 21% 67%;
+    --accent: 220 35% 22%;
+    --accent-foreground: 37 39% 94%;
+    --destructive: 0 53% 45%;
+    --destructive-foreground: 37 39% 94%;
+    --border: 220 35% 22%;
+    --input: 220 35% 22%;
+    --ring: 0 53% 50%;
+    --chart-1: 0 53% 50%;
+    --chart-2: 218 21% 67%;
+    --chart-3: 220 35% 22%;
+    --chart-4: 37 39% 94%;
+    --chart-5: 221 39% 11%;
     --radius: 0.625rem;
-  }
 
-  .dark {
-    --background: 222 47% 8%;
-    --foreground: 210 20% 98%;
-    --card: 222 40% 12%;
-    --card-foreground: 210 20% 98%;
-    --popover: 222 40% 12%;
-    --popover-foreground: 210 20% 98%;
-    --primary: 210 20% 98%;
-    --primary-foreground: 222 47% 11%;
-    --secondary: 222 30% 18%;
-    --secondary-foreground: 210 20% 98%;
-    --muted: 222 30% 16%;
-    --muted-foreground: 215 15% 65%;
-    --accent: 178 100% 35%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 222 30% 20%;
-    --input: 222 30% 20%;
-    --ring: 178 100% 35%;
-    --chart-1: 178 100% 35%;
-    --chart-2: 210 20% 70%;
-    --chart-3: 197 37% 50%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    /* Families are loaded by <link> in app/layout.tsx and read by tailwind.config.ts. */
+    --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    --font-body: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
   }
 }
 

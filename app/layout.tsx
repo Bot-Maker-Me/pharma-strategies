@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Playfair_Display, Manrope, IBM_Plex_Mono } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
@@ -8,29 +7,15 @@ import { CursorGlow } from '@/components/effects/cursor-glow';
 import { ClickSpark } from '@/components/react-bits';
 import { siteConfig } from '@/config/site';
 
-// High-contrast editorial serif for every large headline.
-const displaySerif = Playfair_Display({
-  subsets: ['latin'],
-  variable: '--font-display',
-  display: 'swap',
-  weight: ['400', '500', '600', '700'],
-});
-
-// Clean geometric sans for body copy, UI and tables.
-const bodySans = Manrope({
-  subsets: ['latin'],
-  variable: '--font-body',
-  display: 'swap',
-  weight: ['300', '400', '500', '600', '700'],
-});
-
-// Mono is reserved for small uppercase labels and ledger data.
-const ledgerMono = IBM_Plex_Mono({
-  subsets: ['latin'],
-  variable: '--font-mono',
-  display: 'swap',
-  weight: ['300', '400', '500', '600'],
-});
+/**
+ * Fonts are loaded from Google's CDN with <link> rather than `next/font/google`.
+ * `next/font` downloads every face during `next build`, so an unreachable
+ * fonts.gstatic.com fails the whole deploy — the families are identical here, they just
+ * resolve in the browser instead. `--font-display` / `--font-body` / `--font-mono` are
+ * declared in `globals.css` and consumed by `tailwind.config.ts`.
+ */
+const FONT_STYLESHEET =
+  'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -68,11 +53,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className={`${displaySerif.variable} ${bodySans.variable} ${ledgerMono.variable}`}
-    >
+    <html lang="en">
       <body className="font-sans antialiased">
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="stylesheet" href={FONT_STYLESHEET} />
         <SmoothScrollProvider>
           <CursorGlow />
           <ClickSpark />
