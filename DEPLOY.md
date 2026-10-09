@@ -36,6 +36,18 @@ failed — and since `/apps` is statically generated, the production build died 
 deployment could exist. Clients are now lazy and guarded by `isSupabaseConfigured`, so
 nothing env-dependent runs at import time.
 
+## Supabase
+
+The app expects the schema in `supabase/migrations/`. On a fresh project, either paste
+`supabase/setup.sql` into the SQL Editor (one query, idempotent) or run
+`npx supabase link --project-ref glgstbspabvmvgdvjyyu` followed by `npx supabase db push`.
+`supabase/README.md` has the full walkthrough, including how to create the first
+administrator — the browser can never promote itself.
+
+`SUPABASE_SERVICE_ROLE_KEY` is optional for the features that exist today: the lead form's
+INSERT and the `/go/[slug]` destination lookup are both permitted to the `anon` role by
+RLS. Add it when you need server-side admin or audit writes.
+
 ## Package manager
 
 The repo contains a `pnpm-workspace.yaml` (tool-generated for local build approvals)
