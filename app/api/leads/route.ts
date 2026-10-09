@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabaseServer } from '@/lib/supabase';
+import { createSupabaseServerClient, isSupabaseConfigured } from '@/lib/supabase';
 
 export async function POST(req: NextRequest) {
   try {
@@ -21,7 +21,15 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { error } = await supabaseServer.from('leads').insert({
+    if (!isSupabaseConfigured) {
+      console.error('[leads] Supabase is not configured, so the lead was not stored.');
+      return NextResponse.json(
+        { error: 'Requests are not connected yet on this deployment. Please try again later.' },
+        { status: 503 }
+      );
+    }
+
+    const { error } = await createSupabaseServerClient().from('leads').insert({
       name,
       email,
       company: company || null,

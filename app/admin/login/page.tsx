@@ -6,7 +6,7 @@ import { ShieldCheck, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { createSupabaseBrowserClient } from '@/lib/supabase';
+import { createSupabaseBrowserClient, isSupabaseConfigured } from '@/lib/supabase';
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -19,6 +19,13 @@ export default function AdminLoginPage() {
     event.preventDefault();
     setBusy(true);
     setError('');
+
+    if (!isSupabaseConfigured) {
+      setError('Admin sign-in is not configured on this deployment.');
+      setBusy(false);
+      return;
+    }
+
     const { error: signInError } = await createSupabaseBrowserClient().auth.signInWithPassword({ email, password });
     if (signInError) {
       setError('Sign-in failed. Check your details or contact the account owner.');

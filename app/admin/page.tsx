@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { createSupabaseBrowserClient } from '@/lib/supabase';
+import { createSupabaseBrowserClient, isSupabaseConfigured } from '@/lib/supabase';
 
 interface AdminApp {
   id: string;
@@ -31,6 +31,24 @@ interface SubscriptionRow {
   app: { name: string } | null;
 }
 
+function AdminNotConfigured() {
+  return (
+    <main className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-4 py-16">
+      <div className="glass-panel w-full max-w-md rounded-panel p-8">
+        <p className="font-mono text-[11px] uppercase tracking-widest text-accentRed">
+          Not configured
+        </p>
+        <h1 className="mt-3 font-heading text-2xl text-primaryText">Admin is offline</h1>
+        <p className="mt-3 text-sm leading-relaxed text-secondaryText">
+          This deployment has no Supabase credentials, so the dashboard cannot load.
+          Add NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY and
+          SUPABASE_SERVICE_ROLE_KEY to the environment and redeploy.
+        </p>
+      </div>
+    </main>
+  );
+}
+
 const emptyApp: Omit<AdminApp, 'id'> = {
   slug: '',
   name: '',
@@ -51,6 +69,11 @@ function priceValue(value: string): number | null {
 }
 
 export default function AdminPage() {
+  // isSupabaseConfigured is inlined at build time, so this branch never changes
+  // between renders. Checking it before the hooks keeps a deployment without
+  // credentials from throwing inside the Supabase client.
+  if (!isSupabaseConfigured) return <AdminNotConfigured />;
+
   const router = useRouter();
   const supabase = createSupabaseBrowserClient();
   const [authorized, setAuthorized] = useState(false);
