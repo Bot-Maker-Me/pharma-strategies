@@ -1,4 +1,6 @@
+import { PageHero } from '@/components/layout/page-hero';
 import { AppsGrid } from '@/components/sections/apps-grid';
+import { CtaBand } from '@/components/sections/cta-band';
 import { apps as fallbackApps, type AppCategory } from '@/config/apps';
 import { createSupabaseServerClient, isSupabaseConfigured } from '@/lib/supabase';
 
@@ -46,5 +48,29 @@ async function loadApps() {
 
 export default async function AppsPage() {
   const apps = await loadApps();
-  return <main><div className="mx-auto max-w-7xl px-4 pb-4 pt-16 text-center sm:px-6 lg:px-8"><p className="text-sm font-semibold uppercase tracking-[0.2em] text-accentRed">Pharma Strategies marketplace</p><h1 className="mt-3 font-heading text-4xl font-bold tracking-tight text-primaryText sm:text-5xl">Compliance tools for regulated teams</h1></div><AppsGrid apps={apps} /></main>;
+
+  return (
+    <>
+      <PageHero
+        eyebrow="§ 06 — Apps"
+        title="Compliance tools for regulated teams"
+        lead="Choose only the tools your operation needs. Every workspace reads and writes the same controlled-substance register."
+        meta={[
+          { label: 'Apps live', value: String(apps.length) },
+          { label: 'Shared ledger', value: 'One register, every view' },
+          { label: 'Access', value: 'Set by role' },
+        ]}
+      />
+
+      <AppsGrid apps={apps} />
+
+      <CtaBand
+        eyebrow="§ 06.1 — Next step"
+        title="Which app does your operation actually need?"
+        description="Ten minutes on the phone usually settles it."
+        secondaryHref="/pricing"
+        secondaryLabel="See pricing"
+      />
+    </>
+  );
 }

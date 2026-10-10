@@ -1,21 +1,87 @@
-'use client';
+import Link from 'next/link';
+import { PageHero } from '@/components/layout/page-hero';
+import { DemoForm } from '@/components/sections/demo-form';
+import { StaggerReveal } from '@/components/motion/stagger-reveal';
 
-import { useState, type FormEvent } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+export const metadata = { title: 'Book a demo' };
+
+const agenda = [
+  {
+    index: '01',
+    title: 'You describe the operation',
+    body: 'Sites, substances, who receives stock and who signs for it.',
+  },
+  {
+    index: '02',
+    title: 'We load a demo facility',
+    body: 'Your substances and minimum levels appear in a register you can click through.',
+  },
+  {
+    index: '03',
+    title: 'You keep the export',
+    body: 'Walk away with a sample audit export and a plan for your first count.',
+  },
+];
+
+const facts = [
+  { label: 'Response time', value: 'One business day' },
+  { label: 'First call', value: '30 minutes' },
+  { label: 'Obligation', value: 'None — keep the export' },
+];
 
 export default function ContactPage() {
-  const [status, setStatus] = useState('');
-  const [busy, setBusy] = useState(false);
-  async function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault(); setBusy(true); setStatus('');
-    const form = new FormData(event.currentTarget);
-    const response = await fetch('/api/leads', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: form.get('name'), email: form.get('email'), company: form.get('company'), message: form.get('message') }) });
-    setBusy(false);
-    setStatus(response.ok ? 'Thanks. Your message has been received.' : 'We could not send your message. Please try again.');
-    if (response.ok) event.currentTarget.reset();
-  }
-  return <main className="mx-auto max-w-3xl px-4 py-20 sm:px-6 lg:px-8"><div className="rounded-3xl border border-hairline bg-raisedDark p-8 shadow-soft sm:p-12"><p className="text-sm font-semibold uppercase tracking-[0.2em] text-accentRed">Contact Pharma Strategies</p><h1 className="mt-4 font-heading text-4xl font-bold tracking-tight text-primaryText">Let&apos;s talk about your operation</h1><p className="mt-4 leading-7 text-secondaryText">Tell us what you are trying to improve and our team will follow up.</p><form onSubmit={submit} className="mt-8 space-y-5"><div className="grid gap-5 sm:grid-cols-2"><div className="space-y-2"><Label htmlFor="name">Name</Label><Input id="name" name="name" required /></div><div className="space-y-2"><Label htmlFor="email">Work email</Label><Input id="email" name="email" type="email" required /></div></div><div className="space-y-2"><Label htmlFor="company">Company</Label><Input id="company" name="company" /></div><div className="space-y-2"><Label htmlFor="message">How can we help?</Label><Textarea id="message" name="message" required rows={6} /></div><Button type="submit" disabled={busy} className="bg-accentRed text-primaryText hover:bg-accentRedBright">{busy ? 'Sending...' : 'Send message'}</Button>{status && <p className="text-sm text-secondaryText" role="status">{status}</p>}</form></div></main>;
+  return (
+    <>
+      <PageHero
+        eyebrow="§ 10 — Book a demo"
+        title="Let's talk about your operation"
+        lead="Tell us what you are trying to improve and our team will follow up with two or three times that suit your facility."
+        meta={facts}
+      />
+
+      <section className="bg-raisedDark py-28 lg:py-36">
+        <div className="ed-container grid grid-cols-1 gap-16 lg:grid-cols-2">
+          <div>
+            <p className="mb-5 flex items-center gap-3 font-mono text-[11px] uppercase tracking-widest text-secondaryText">
+              <span aria-hidden className="h-px w-8 bg-accentRed" />
+              § CD — What happens next
+            </p>
+            <h2 className="mb-10 font-heading text-[clamp(1.75rem,3.5vw,2.75rem)] font-normal leading-[1.1] text-primaryText">
+              A working session, not a sales call
+            </h2>
+
+            <StaggerReveal className="space-y-4" stagger={0.12} y={24}>
+              {agenda.map((item) => (
+                <div key={item.index} className="border-t border-hairline pt-5">
+                  <div className="flex items-baseline gap-4">
+                    <span className="font-mono text-[10px] uppercase tracking-widest text-accentRed">
+                      {item.index}
+                    </span>
+                    <h3 className="font-heading text-lg text-primaryText">{item.title}</h3>
+                  </div>
+                  <p className="mt-2 pl-8 font-sans text-sm leading-relaxed text-secondaryText">
+                    {item.body}
+                  </p>
+                </div>
+              ))}
+            </StaggerReveal>
+
+            <p className="mt-10 max-w-md font-sans text-sm text-secondaryText">
+              Prefer to read first? The{' '}
+              <Link href="/platform" className="text-accentRed underline-offset-4 hover:underline">
+                platform overview
+              </Link>{' '}
+              and{' '}
+              <Link href="/resources" className="text-accentRed underline-offset-4 hover:underline">
+                resource library
+              </Link>{' '}
+              cover most of what the call will.
+            </p>
+          </div>
+
+          <DemoForm />
+        </div>
+      </section>
+    </>
+  );
 }

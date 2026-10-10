@@ -62,9 +62,11 @@ export default function RootLayout({
           <CursorGlow />
           <ClickSpark />
           <div className="paper-grain" />
-          <div className="relative flex min-h-screen flex-col">
+          {/* Every page gets its own opaque background as well as the body, so no
+              route can ever fall back to the browser's white default. */}
+          <div className="relative flex min-h-screen flex-col bg-midnight text-primaryText">
             <Navbar />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 bg-midnight">{children}</main>
             <Footer />
           </div>
         </SmoothScrollProvider>

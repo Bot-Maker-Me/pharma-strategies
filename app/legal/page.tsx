@@ -1,3 +1,7 @@
+import { PageHero } from '@/components/layout/page-hero';
+import { StaggerReveal } from '@/components/motion/stagger-reveal';
+import { CtaBand } from '@/components/sections/cta-band';
+
 export const metadata = { title: 'Legal, Privacy & Compliance' };
 
 const sections = [
@@ -11,5 +15,62 @@ const sections = [
 ] as const;
 
 export default function LegalPage() {
-  return <main className="mx-auto max-w-4xl px-4 py-20 sm:px-6 lg:px-8"><div className="rounded-3xl border border-hairline bg-raisedDark p-8 shadow-soft sm:p-12"><p className="text-sm font-semibold uppercase tracking-[0.2em] text-accentRed">Pharma Strategies legal centre</p><h1 className="mt-4 font-heading text-4xl font-bold tracking-tight text-primaryText">Legal, privacy & compliance</h1><p className="mt-5 text-lg leading-relaxed text-secondaryText">Clear operating rules for customers, users, and Canadian privacy expectations. Last updated October 6, 2026.</p><div className="mt-12 space-y-10">{sections.map(([title, body]) => <section key={title}><h2 className="font-heading text-xl font-semibold text-primaryText">{title}</h2><p className="mt-3 leading-8 text-secondaryText">{body}</p></section>)}</div></div></main>;
+  return (
+    <>
+      <PageHero
+        eyebrow="§ L1 — Legal centre"
+        title="Legal, privacy & compliance"
+        lead="Clear operating rules for customers, users, and Canadian privacy expectations. Last updated October 6, 2026."
+        meta={[
+          { label: 'Jurisdiction', value: 'Canada' },
+          { label: 'Framework', value: 'PIPEDA-aligned' },
+          { label: 'Data location', value: 'Managed cloud region' },
+        ]}
+      />
+
+      <section className="bg-midnight py-28 lg:py-36">
+        <div className="ed-container">
+          <div className="grid gap-12 lg:grid-cols-12">
+            <nav aria-label="Legal sections" className="lg:col-span-4">
+              <p className="mb-5 font-mono text-[10px] uppercase tracking-widest text-secondaryText">
+                On this page
+              </p>
+              <ol className="space-y-3">
+                {sections.map(([title], index) => (
+                  <li key={title} className="flex items-baseline gap-3">
+                    <span className="font-mono text-[10px] tabular-nums text-accentRed">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <span className="font-sans text-sm text-secondaryText">{title}</span>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+
+            <StaggerReveal className="lg:col-span-8" stagger={0.08} y={24}>
+              {sections.map(([title, body], index) => (
+                <section key={title} className="border-t border-hairline py-8 first:border-t-0 first:pt-0">
+                  <div className="mb-3 flex items-baseline gap-3">
+                    <span className="font-mono text-[10px] tabular-nums text-accentRed">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <h2 className="font-heading text-xl text-primaryText">{title}</h2>
+                  </div>
+                  <p className="font-sans leading-8 text-secondaryText">{body}</p>
+                </section>
+              ))}
+            </StaggerReveal>
+          </div>
+        </div>
+      </section>
+
+      <CtaBand
+        eyebrow="§ L2 — Questions"
+        title="Privacy question, or a request about your data?"
+        description="Send it through the contact form and it reaches the team that handles it."
+        secondaryHref="/resources"
+        secondaryLabel="Read the resources"
+      />
+    </>
+  );
 }
