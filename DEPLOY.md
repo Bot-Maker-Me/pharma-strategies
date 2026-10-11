@@ -13,8 +13,9 @@ live app data, lead capture and `/admin`; without it those features degrade grac
 3. **Root Directory: leave empty (repo root).** A legacy duplicate Next.js app lives in
    `project/`; it is untracked and excluded in `tsconfig.json`. Never point the Root
    Directory at it.
-4. **Node.js Version: 20.x** (*Settings → General*). This matches `engines.node` in
-   `package.json`.
+4. **Node.js Version: 24.x** (*Settings → General*). This matches `engines.node` in
+   `package.json`. Vercel discontinued Node 20, so a `20.x` pin now fails the build
+   immediately with *"Node.js Version \"20.x\" is discontinued and must be upgraded"*.
 5. **Environment Variables** (*Settings → Environment Variables*, all environments):
 
    | Key | Required | Notes |
