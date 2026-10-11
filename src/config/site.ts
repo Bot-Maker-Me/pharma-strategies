@@ -52,7 +52,7 @@ export const SERVICES: Service[] = [
     number: '04',
     title: 'Customized Pharmacy Portals',
     description:
-      'We look at how your practice runs and recommend changes, then build apps and tools that streamline communication and resources.',
+      'We access your practices and make recommendations to make your operation smooth and efficient by creating apps and tools to streamline communication and resources.',
     items: ['Practice review and recommendations', 'Custom apps and tools', 'Communication and resource workflows'],
     // Same app link the apps listing uses ("Open app" → /go/[slug]).
     link: { label: 'See Pharma Portal', href: '/go/pharma-portal' },
