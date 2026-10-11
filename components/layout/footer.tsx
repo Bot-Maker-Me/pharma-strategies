@@ -1,13 +1,19 @@
 import Link from 'next/link';
 import { siteConfig } from '@/config/site';
+import { REMOTE_SUPPORT_URL } from '@/src/config/site';
+import { RemoteSupportLink } from '@/components/shared/remote-support-link';
 
-const columns = [
+type FooterLink = { label: string; href: string; external?: boolean };
+type FooterColumn = { title: string; links: FooterLink[] };
+
+const columns: FooterColumn[] = [
   {
     title: 'Product',
     links: [
       { label: 'The register', href: '/platform' },
       { label: 'Apps', href: '/apps' },
       { label: 'Pricing', href: '/pricing' },
+      { label: 'Services', href: '#services' },
     ],
   },
   {
@@ -16,6 +22,7 @@ const columns = [
       { label: 'About', href: '/about' },
       { label: 'Resources', href: '/resources' },
       { label: 'Contact', href: '/contact' },
+      { label: 'Remote support', href: REMOTE_SUPPORT_URL, external: true },
     ],
   },
   {
@@ -62,12 +69,25 @@ export function Footer() {
                 <ul className="space-y-3">
                   {column.links.map((link) => (
                     <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        className="font-sans text-sm text-secondaryText transition-colors hover:text-primaryText"
-                      >
-                        {link.label}
-                      </Link>
+                      {link.external ? (
+                        <RemoteSupportLink className="font-sans text-sm text-secondaryText transition-colors hover:text-primaryText">
+                          {link.label}
+                        </RemoteSupportLink>
+                      ) : link.href.startsWith('#') ? (
+                        <a
+                          href={link.href}
+                          className="font-sans text-sm text-secondaryText transition-colors hover:text-primaryText"
+                        >
+                          {link.label}
+                        </a>
+                      ) : (
+                        <Link
+                          href={link.href}
+                          className="font-sans text-sm text-secondaryText transition-colors hover:text-primaryText"
+                        >
+                          {link.label}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>

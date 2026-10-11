@@ -30,6 +30,7 @@ Reuse first — only add a component when nothing below fits.
 - `ShimmerButton` (Magic UI) — components/magicui/shimmer-button.tsx
 - `BlurFade` (Magic UI) — components/magicui/blur-fade.tsx
 - `Reveal` — components/shared/reveal.tsx
+- `RemoteSupportLink` — components/shared/remote-support-link.tsx — the single remote-support link (opens `REMOTE_SUPPORT_URL` in a new tab, shared aria-label + focus ring). Used by the nav, mobile menu, footer and the Services section.
 - `SectionLabel` — components/shared/section-label.tsx
 - `SectionHeading` — components/shared/section-heading.tsx — hairline draw + mono eyebrow + masked line-reveal title + optional description
 - `ScrollWords` — components/shared/scroll-words.tsx — scrubbed word-by-word text reveal with accent words
@@ -37,6 +38,7 @@ Reuse first — only add a component when nothing below fits.
 ## Pharma Strategies sections (home page)
 - `Hero` (HeroNew) — components/sections/hero-new.tsx
 - `Statement` — components/sections/statement.tsx
+- `Services` — components/sections/services.tsx — `id="services"`; sticky left statement + four ruled service rows (scroll reveal, hover/focus chip stagger, remote-support line). Copy lives in `SERVICES` (`src/config/site.ts`)
 - `FeatureBentoGrid` — components/sections/feature-bento-grid.tsx
 - `Role tabs` (WhoItsFor) — components/sections/who-its-for.tsx
 - `NarcoticsLedgerPinned` — components/sections/narcotics-ledger-pinned.tsx
@@ -45,6 +47,9 @@ Reuse first — only add a component when nothing below fits.
 - `PricingNew` — components/sections/pricing-new.tsx
 - `FAQ` — components/sections/faq.tsx
 - `ClosingBand` — components/sections/closing-band.tsx
+
+## Content config
+- `REMOTE_SUPPORT_URL` / `SERVICES` — src/config/site.ts — remote-support URL (placeholder) + all Services copy, edited in one place
 
 ## Motion
 - `SmoothScrollProvider` — components/providers/smooth-scroll-provider.tsx
